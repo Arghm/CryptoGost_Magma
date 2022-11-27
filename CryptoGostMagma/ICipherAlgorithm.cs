@@ -1,8 +1,7 @@
-﻿namespace CryptoGost
+﻿namespace CryptoGostMagma
 {
     /// <summary>
-    /// Common interface for all ciphers in the plugin.
-    /// Allows user to separate cipher algorithm from plugin-related logic.
+    /// Common interface for all cipher algorithms (https://en.wikipedia.org/wiki/GOST_(block_cipher)).
     /// </summary>
     public interface ICipherAlgorithm
     {

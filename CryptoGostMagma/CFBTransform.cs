@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace CryptoGost
+namespace CryptoGostMagma
 {
     internal class CFBTransform : ICryptoTransform
     {
@@ -9,7 +9,8 @@ namespace CryptoGost
         private readonly bool _encrypt;
         private readonly byte[] _state;
 
-        public CFBTransform (byte[] pbKey, byte[] pbIV, bool bEncrypt, ICipherAlgorithm cipher) {
+        public CFBTransform (byte[] pbKey, byte[] pbIV, bool bEncrypt, ICipherAlgorithm cipher) 
+        {
             _cipher = cipher;
             _cipher.SetKey(pbKey);
 
@@ -24,8 +25,8 @@ namespace CryptoGost
         public int InputBlockSize { get { return _cipher.BlockSize; } }
         public int OutputBlockSize { get { return _cipher.BlockSize; } }
 
-        public int TransformBlock (byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer,
-            int outputOffset) {
+        public int TransformBlock (byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset) 
+        {
             if (inputCount == 0) return inputCount;
 
             byte[] dataBlock = new byte[inputCount];
@@ -45,13 +46,15 @@ namespace CryptoGost
             return inputCount;
         }
 
-        public byte[] TransformFinalBlock (byte[] inputBuffer, int inputOffset, int inputCount) {
+        public byte[] TransformFinalBlock (byte[] inputBuffer, int inputOffset, int inputCount) 
+        {
             byte[] outputBuffer = new byte[inputCount];
             TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);
             return outputBuffer;
         }
 
-        public void Dispose () {
+        public void Dispose () 
+        {
         }
     }
 }

@@ -1,37 +1,25 @@
 ﻿using System;
 
-namespace CryptoGost
+namespace CryptoGostMagma
 {
+    /// <summary>
+    /// Russian government standard symmetric key block cipher with a block size of 64 bits.
+    /// </summary>
     public class Magma : ICipherAlgorithm
     {
         private const int BLOCK_SIZE = 8;
         private const int KEY_LENGTH = 32;
 
-        public int BlockSize {
-            get {
-                return BLOCK_SIZE;
-            }
-        }
+        public int BlockSize { get { return BLOCK_SIZE; } }
 
-        public void SetKey (byte[] key) {
+        public void SetKey (byte[] key) 
+        {
             _subKeys = GetSubKeys(key);
         }
 
-        public int KeyLength {
-            get {
-                return KEY_LENGTH;
-            }
-        }
+        public int KeyLength { get { return KEY_LENGTH; } }
 
-        public string Name {
-            get {
-                return "GOST 28147-89/Magma (256-Bit Key)";
-            }
-        }
-
-        /*
-         * Magma cipher implementation
-         */
+        public string Name { get { return "GOST 28147-89/Magma (256-Bit Key)"; } }
 
         /// <summary>
         /// Substitution Table
@@ -52,7 +40,8 @@ namespace CryptoGost
 
         private uint[] _subKeys;
 
-        public byte[] Encrypt (byte[] data) {
+        public byte[] Encrypt (byte[] data) 
+        {
             byte[] dataR = new byte[data.Length];
             Array.Copy(data, dataR, data.Length);
             Array.Reverse(dataR);
@@ -62,7 +51,8 @@ namespace CryptoGost
 
             byte[] result = new byte[8];
 
-            for (int i = 0; i < 31; i++) {
+            for (int i = 0; i < 31; i++) 
+            {
                 int keyIndex = (i < 24) ? i % 8 : 7 - (i % 8);
                 uint round = a1 ^ funcG(a0, _subKeys[keyIndex]);
 
@@ -79,13 +69,15 @@ namespace CryptoGost
             return result;
         }
 
-        private uint funcG (uint a, uint k) {
+        private uint funcG (uint a, uint k) 
+        {
             uint c = a + k;
             uint tmp = funcT(c);
             return (tmp << 11) | (tmp >> 21);
         }
 
-        private uint funcT (uint a) {
+        private uint funcT (uint a) 
+        {
             uint res = 0;
 
             res ^= _sBox[0][a & 0x0000000f];
@@ -100,7 +92,8 @@ namespace CryptoGost
             return res;
         }
 
-        private uint[] GetSubKeys (byte[] key) {
+        private uint[] GetSubKeys (byte[] key) 
+        {
             byte[] keyR = new byte[key.Length];
             uint[] subKeys = new uint[8];
             Array.Copy(key, keyR, key.Length);
