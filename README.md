@@ -7,5 +7,5 @@ Project is an implementation of block cipher with a block length of n=64 bits an
 referred to as "Magma".
 
 ![C#](https://img.shields.io/badge/c%23-%23121011.svg?color=blue&style=for-the-badge&logo=c-sharp&logoColor=white)
-![xUnit](https://img.shields.io/badge/c%23-%23121011.svg?color=gray&style=for-the-badge&logo=xunit&logoColor=black)
+![xUnit](https://img.shields.io/badge/xUnit-%23121011.svg?color=gray&style=for-the-badge&logo=xunit&logoColor=black)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
